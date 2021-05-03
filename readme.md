@@ -1,0 +1,33 @@
+# curl -sSL httpd://get.docker.com | sh
+# systemctl enable docker
+# systemctl start docker
+
+# vi Dockerfile
+
+FROM alpine:3.12
+RUN echo http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/main >> /etc/apk/repositories
+RUN echo http://dl-cdn.alpinelinux.org/alpine/v$(cat /etc/alpine-release | cut -d'.' -f1,2)/community >> /etc/apk/repositories
+RUN apk update
+RUN apk add bash-completion \
+    && apk add nginx
+RUN mkdir -p /run/nginx
+RUN adduser -D -g 'www' www
+RUN mkdir /www
+RUN chown -R www:www /var/lib/nginx
+RUN chown -R www:www /www
+ADD nginx.conf /etc/nginx/
+ADD index.html /www/
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+
+# docker build -t deepsey/custom_nginx ~
+# docker run -it --name custom_nginx -p 80:80 deepsey/custom_nginx
+
+# curl http://localhost
+<center><H1>My NGINX is working!</H1></center>
+
+
+# docker login
+# docker push deepsey/custom_nginx
+
+https://hub.docker.com/repository/docker/deepsey/custom_nginx
