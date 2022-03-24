@@ -1,10 +1,10 @@
 # ДЗ по теме Docker
 
-# 1. Устанавливаем и запускаем docker
+#### 1. Устанавливаем и запускаем docker
 
-curl -sSL httpd://get.docker.com | sh
-systemctl enable docker
-systemctl start docker
+    curl -sSL https://get.docker.com | sh  
+    systemctl enable docker    
+    systemctl start docker  
 
 # 2. Копируем необходимые для сборки образа файлы
 
